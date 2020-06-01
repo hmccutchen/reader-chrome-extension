@@ -1,31 +1,27 @@
 body{
-  background-color: #262323;
-}
+  bottom: 0;
+  top:0;
+  }
 
-
-
-
-.focus{
-    width: 100%;
-    height: 100%;
-    color: black;
-    padding: 0px;
-    margin: 0px;
-    background-color: #312e2e;
-    opacity: 0.5;
-}
-
-
-/*.word-text:hover{
-  cursor: pointer;
-  background-color: white;
-}*/
 
 #box-top {
   position: absolute;
+  background-color: black;
+  height:100vh;
+  opacity: .8;
+ left:0;
+ right: 0;
+ z-index: 1;
+ display: block;
+}
 
-  /* Makes the text white */
-   /* Makes the box text larger (24 pixels tall) */
-  /*transition: ease-out 1s;  Gives a smooth movement following the box, s for seconds. Feel free to increase lower */
-  /*opacity:1;*/
+#box-bottom {
+  position: absolute;
+  background-color: black;
+  height:100vh;
+  width:100vw;
+  opacity: .8;
+  left:0;
+  right: 0;
+
 }
