@@ -1,47 +1,59 @@
 
 
+var pageBody = document.body
 
-// Applies the page element to the document(web page)
-// document.body.appendChild(page);
+var pageDiv = document.createElement("div");
+pageBody.setAttribute('id', 'body');
+pageDiv.setAttribute("class", "top-shade");
+pageBody.insertBefore(pageDiv, pageBody.firstChild);
 
-//Creates variables for x & y for know where our mouse is
-//x is for horizontal values, and y for vertical ones
-var x = 0;
-var y = 0;
+var secondDiv = document.createElement("div");
+secondDiv.setAttribute("class", "bottom-shade");
+pageBody.insertBefore(secondDiv, pageBody.children[1]);
 
-// Add Event Listener for page. Listens for any mouse movement
-// inside the page element. If found, run function below
-document.addEventListener('mousemove', function(event) {
-  //Takes the mouse movement we listened for and saves it into two variables
-
-   y = event.clientY + window.scrollY;
-   x = event.clientY  + (window.scrollY - 750);
-   // console.log(x)
-   // console.log(y)
-   // console.log(window.scrollY)
+var topShade = document.getElementsByClassName("top-shade")[0];
+  var bottomShade = document.getElementsByClassName("bottom-shade")[0];
 
 
-  // x = event.clientX;
-  mousebox();
 
-});
+window.addEventListener("scroll", (event) => {
 
+   record(event)
+})
 
-// Find the css element called 'box' to use in future
-var boxTop = document.getElementById('box-top');
-var boxBottom = document.getElementById('box-bottom');
-
-//Function for a box that follows the mouse around
-var mousebox = function() {
-  //Calls the css code to push the box away from the left & top
-  //the same x & y values that the mouse has
-
-  boxTop.style.width = "100vw";
+console.log(topShade)
+  topShade.style.display = "block" 
+  // bottomShade.style.display = "block" 
 
 
-  boxTop.style.top = y + 10 + 'px';
 
-  boxBottom.style.bottom = -x  +"px";
+var record = (event) => {
+  var topShade = document.getElementsByClassName("top-shade")[0];
+  var bottomShade = document.getElementsByClassName("bottom-shade")[0];
 
+    var topY = event.clientY - 10 + this.scrollY;
+    var bottomY = event.clientY + 50 + this.scrollY;
+    
+
+    topShade.style.height = `${topY}px`;
+    topShade.style.width = "100vw";
+    topShade.style.position = "absolute";
+    topShade.style.opacity = ".8";
+    topShade.style.backgroundColor = "black";
+    topShade.style.zIndex = "2147483647";
+
+    bottomShade.style.height = `${100}%`;
+    bottomShade.style.width = "100vw";
+    bottomShade.style.position = "absolute";
+    bottomShade.style.opacity = ".8";
+    bottomShade.style.backgroundColor = "black";
+    bottomShade.style.top = `${bottomY}px`;
+    bottomShade.style.zIndex = "2147483647";
+    // bottomShade.style.bottom = "0";
 }
+
+
+var shadeCollection = document.getElementById("body").addEventListener("mousemove", (event) => {
+    record(event)
+  });
 
