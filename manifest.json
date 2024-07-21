@@ -5,17 +5,34 @@
   "icons": { "16": "text-converter-16.png",
     "48": "text-converter-48.png",
     "100": "text-converter.png"
-    
+
+  },
+  "background": {
+    "service_worker": "background.js"
+  },
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["random.js"]
+    }
+  ],
+  "commands":{
+    "close": {
+      "suggested_key":  {
+        "default": "Ctrl+Shift+X",
+        "mac": "MacCtrl+Shift+X"
+      },
+      "description": "Closes the current extension"
+      }
   },
 
   "action": {
     "default_popup": "index.html",
     "default_icon": { "16": "text-converter-16.png", "48": "text-converter.png"},
     "default_title": "sentence reader"
-    
+
   },
-  "permissions": ["tabs","scripting"],
-  "host_permissions": ["<all_urls>"],
+  "permissions": ["tabs","scripting", "activeTab"],
   "manifest_version": 3
 
 }
