@@ -1,9 +1,9 @@
 body{
   bottom: 0;
   top:0;
-  width: 100px;
+  width: 200px;
   }
 
-
-
-
+h3{
+  padding-right: 10px;
+}
