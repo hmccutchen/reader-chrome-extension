@@ -23,11 +23,17 @@
         "mac": "MacCtrl+Shift+X"
       },
       "description": "Closes the current extension"
+      },
+      "open": {
+        "suggested_key":  {
+          "default": "Ctrl+Shift+O",
+          "mac": "MacCtrl+Shift+O"
+        },
+        "description": "Opens the current extension"
       }
   },
 
   "action": {
-    "default_popup": "index.html",
     "default_icon": { "16": "text-converter-16.png", "48": "text-converter.png"},
     "default_title": "sentence reader"
 
