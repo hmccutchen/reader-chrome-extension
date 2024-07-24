@@ -1,37 +1,18 @@
-var el = document.querySelector("body");
-var topValue = 10;
-var bottomValue = 50;
+(() => {
+  let topOffset = 50;
+  const bottomOffset = 2;
+  let lastY = window.innerHeight / 2;
 
-var existingBody = document.getElementById("body");
+  const topShade = document.getElementsByClassName("top-shade")[0];
+  const bottomShade = document.getElementsByClassName("bottom-shade")[0];
 
-if (existingBody) {
-} else {
-  var pageBody = document.body;
+  let updateShadesPosition = (event, forceUpdate = false) => {
+    if (event) {
+      lastY = event.clientY;
+    }
 
-  var pageDiv = document.createElement("div");
-  pageBody.setAttribute("id", "body");
-  pageDiv.setAttribute("class", "top-shade");
-  pageBody.insertBefore(pageDiv, pageBody.firstChild);
-
-  var secondDiv = document.createElement("div");
-  secondDiv.setAttribute("class", "bottom-shade");
-  pageBody.insertBefore(secondDiv, pageBody.children[1]);
-
-  var topShade = document.getElementsByClassName("top-shade")[0];
-  var bottomShade = document.getElementsByClassName("bottom-shade")[0];
-
-  window.addEventListener("scroll", (event) => {
-    record(event);
-  });
-
-  topShade.style.display = "block";
-
-  var record = (event) => {
-    var topShade = document.getElementsByClassName("top-shade")[0];
-    var bottomShade = document.getElementsByClassName("bottom-shade")[0];
-    var topY = event.clientY - topValue + this.scrollY;
-
-    var bottomY = event.clientY + bottomValue + this.scrollY;
+    const topY = lastY - topOffset + window.scrollY;
+    const bottomY = lastY + bottomOffset + window.scrollY;
 
     topShade.style.height = `${topY}px`;
     topShade.style.width = "100vw";
@@ -39,20 +20,38 @@ if (existingBody) {
     topShade.style.opacity = ".8";
     topShade.style.backgroundColor = "black";
     topShade.style.zIndex = "2147483647";
+    topShade.style.pointerEvents = "none";
 
-    bottomShade.style.height = `${100}%`;
-    bottomShade.style.width = "100vw";
-    bottomShade.style.position = "absolute";
-    bottomShade.style.opacity = ".8";
-    bottomShade.style.backgroundColor = "black";
-    bottomShade.style.top = `${bottomY}px`;
-    bottomShade.style.zIndex = "2147483647";
-    // bottomShade.style.bottom = "0";
+    if (!forceUpdate) {
+      bottomShade.style.height = `${100}%`;
+      bottomShade.style.width = "100vw";
+      bottomShade.style.position = "absolute";
+      bottomShade.style.opacity = ".8";
+      bottomShade.style.backgroundColor = "black";
+      bottomShade.style.top = `${bottomY}px`;
+      bottomShade.style.zIndex = "2147483647";
+      topShade.style.pointerEvents = "none";
+    }
   };
 
-  var shadeCollection = document
-    .getElementById("body")
-    .addEventListener("mousemove", (event) => {
-      record(event);
-    });
-}
+  chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
+    if (message.action === "increase") {
+      topOffset += 10;
+
+      updateShades();
+    } else if (message.action === "decrease") {
+      topOffset = Math.max(0, topOffset - 10);
+      updateShades();
+    }
+  });
+
+  const updateShades = () => {
+    updateShadesPosition(null, true);
+  };
+  window.addEventListener("scroll", (event) => {
+    updateShadesPosition(event);
+  });
+  document.getElementById("body").addEventListener("mousemove", (event) => {
+    updateShadesPosition(event);
+  });
+})();
