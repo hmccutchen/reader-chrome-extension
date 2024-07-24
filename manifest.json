@@ -30,6 +30,20 @@
           "mac": "MacCtrl+Shift+O"
         },
         "description": "Opens the current extension"
+      },
+      "increase": {
+        "suggested_key":  {
+          "default": "Ctrl+Shift+Up",
+          "mac": "MacCtrl+Shift+Up"
+        },
+        "description": "Increases the shader size"
+      },
+      "decrease": {
+        "suggested_key":  {
+          "default": "Ctrl+Shift+Down",
+          "mac": "MacCtrl+Shift+Down"
+        },
+        "description": "Decreases the shader size"
       }
   },
 
