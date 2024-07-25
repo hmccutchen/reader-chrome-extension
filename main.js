@@ -7,7 +7,7 @@
   const bottomShade = document.getElementsByClassName("bottom-shade")[0];
 
   let updateShadesPosition = (event, forceUpdate = false) => {
-    if (event) {
+    if (event && event.type === "mousemove") {
       lastY = event.clientY;
     }
 
@@ -48,10 +48,23 @@
   const updateShades = () => {
     updateShadesPosition(null, true);
   };
-  window.addEventListener("scroll", (event) => {
-    updateShadesPosition(event);
-  });
-  document.getElementById("body").addEventListener("mousemove", (event) => {
-    updateShadesPosition(event);
-  });
+
+  const initializeShades = () => {
+    window.addEventListener("scroll", (event) => {
+      updateShadesPosition(event);
+    });
+    document.getElementById("body").addEventListener("mousemove", (event) => {
+      updateShadesPosition(event);
+    });
+    const initialMouseMoveEvent = new MouseEvent("mousemove", {
+      clientY: lastY,
+    });
+    updateShadesPosition(initialMouseMoveEvent);
+  };
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", initializeShades);
+  } else {
+    initializeShades();
+  }
 })();

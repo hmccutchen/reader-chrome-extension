@@ -52,7 +52,7 @@
     "default_title": "sentence reader"
 
   },
-  "permissions": ["tabs","scripting", "activeTab"],
+  "permissions": ["scripting", "activeTab"],
   "manifest_version": 3
 
 }
