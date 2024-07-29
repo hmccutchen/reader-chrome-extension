@@ -1,12 +1,13 @@
 {
   "name": "Reader focus",
-  "version": "2.0",
+  "version": "2.1",
   "description": "This extension allows users to focus on single sentences when reading text.",
   "icons": { "16": "text-converter-16.png",
     "48": "text-converter-48.png",
     "100": "text-converter.png"
 
   },
+  "manifest_version": 3,
   "background": {
     "service_worker": "background.js"
   },
@@ -48,11 +49,12 @@
   },
 
   "action": {
-    "default_icon": { "16": "text-converter-16.png", "48": "text-converter.png"},
-    "default_title": "sentence reader"
-
+    "default_icon": { "16": "text-converter-16.png",
+     "48": "text-converter.png"
+    },
+    "default_title": "Reader Focus",
+    "default_popup": "index.html"
   },
-  "permissions": ["scripting", "activeTab"],
-  "manifest_version": 3
-
+  "permissions": ["tabs", "scripting", "activeTab"],
+  "host_permissions": ["<all_urls>"]
 }
