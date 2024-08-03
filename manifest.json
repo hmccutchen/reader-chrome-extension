@@ -27,8 +27,8 @@
       },
       "open": {
         "suggested_key":  {
-          "default": "Ctrl+Shift+O",
-          "mac": "MacCtrl+Shift+O"
+          "default": "Ctrl+Shift+A",
+          "mac": "MacCtrl+Shift+A"
         },
         "description": "Opens the current extension"
       },
@@ -49,11 +49,12 @@
   },
 
   "action": {
-    "default_icon": { "16": "text-converter-16.png",
+    "default_icon": {
+      "16": "text-converter-16.png",
      "48": "text-converter.png"
     },
     "default_title": "Reader Focus",
-    "default_popup": "index.html"
+    "default_popup": "popup.html"
   },
   "permissions": ["tabs", "scripting", "activeTab"],
   "host_permissions": ["<all_urls>"]
