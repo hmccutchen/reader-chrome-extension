@@ -1,7 +1,17 @@
+const isValidUrl = (url) => {
+  if (
+    url &&
+    !url.includes("chrome://") &&
+    !url.includes("chrome-extension://")
+  ) {
+    alert("This is not a valid URL");
+  }
+};
+
 chrome.commands.onCommand.addListener((command) => {
   chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
     const tabId = tabs[0].id;
-
+    isValidUrl(tabs[0].url);
     switch (command) {
       case "close":
         chrome.tabs.sendMessage(tabId, { action: "closeShades" });
@@ -27,19 +37,3 @@ chrome.commands.onCommand.addListener((command) => {
     }
   });
 });
-
-// chrome.tabs.onActivated.addListener((activeInfo) => {
-//   chrome.scripting.executeScript({
-//     target: { tabId: activeInfo.tabId },
-//     files: ["main.js"],
-//   });
-// });
-
-// chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
-//   if (changeInfo.status === "complete") {
-//     chrome.scripting.executeScript({
-//       target: { tabId: tabId },
-//       files: ["main.js"],
-//     });
-//   }
-// });
