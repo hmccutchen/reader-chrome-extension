@@ -56,6 +56,6 @@
     "default_title": "Reader Focus",
     "default_popup": "popup.html"
   },
-  "permissions": ["tabs", "scripting", "activeTab"],
+  "permissions": [ "scripting", "activeTab"],
   "host_permissions": ["<all_urls>"]
 }
