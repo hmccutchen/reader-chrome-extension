@@ -1,11 +1,7 @@
 const isValidUrl = (url) => {
-  if (
-    url &&
-    !url.includes("chrome://") &&
-    !url.includes("chrome-extension://")
-  ) {
-    alert("This is not a valid URL");
-  }
+  return (
+    url && !url.includes("chrome://") && !url.includes("chrome-extension://")
+  );
 };
 
 chrome.commands.onCommand.addListener((command) => {
