@@ -2,6 +2,7 @@ if (!window.shadesInitialized) {
   window.shadesInitialized = true;
   chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
     if (message.action === "openShades") {
+      console.log("content script received");
       initShadeSetup();
       initializeShades();
     } else if (message.action === "closeShades") {
@@ -68,7 +69,7 @@ if (!window.shadesInitialized) {
     window.removeEventListener("scroll", handleScroll);
     document
       .getElementById("body")
-      .removeEventListener("mousemove", handleMouseMove);
+      ?.removeEventListener("mousemove", handleMouseMove);
   };
 
   let updateShadesPosition = (event, forceUpdate = false) => {
