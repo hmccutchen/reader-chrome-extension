@@ -1,12 +1,7 @@
-const isValidUrl = (url) => {
-  return (
-    url && !url.includes("chrome://") && !url.includes("chrome-extension://")
-  );
-};
 chrome.commands.onCommand.addListener((command) => {
   chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
     const tabId = tabs[0].id;
-    isValidUrl(tabs[0].url);
+
     switch (command) {
       case "close":
         chrome.tabs.sendMessage(tabId, { action: "closeShades" });
@@ -14,6 +9,7 @@ chrome.commands.onCommand.addListener((command) => {
         break;
 
       case "open":
+        console.log("Opening shades");
         chrome.scripting.executeScript({
           target: { tabId: tabId },
           files: ["main.js"],
