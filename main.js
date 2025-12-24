@@ -1,28 +1,46 @@
-console.log(window.shadesInitialized);
-chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
-  if (message.action === "openShades") {
-    console.log("content script received");
+const OFFSET_STEP = 10;
+const INITIAL_TOP_OFFSET = 50;
+const bottomOffset = 2;
+
+let topOffset = INITIAL_TOP_OFFSET;
+let lastY = window.innerHeight / 2;
+
+const actionHandlers = {
+  openShades: () => {
     initShadeSetup();
     initializeShades();
-  } else if (message.action === "closeShades") {
+  },
+  closeShades: () => {
     removeShades();
-  } else if (message.action === "increase") {
-    topOffset += 10;
+  },
+  increase: () => {
+    topOffset += OFFSET_STEP;
     updateShades();
-  } else if (message.action === "decrease") {
-    topOffset = Math.max(0, topOffset - 10);
+  },
+  decrease: () => {
+    topOffset = Math.max(0, topOffset - OFFSET_STEP);
     updateShades();
+  },
+  spotlight: () => {
+    initShadeSetup();
+    initializeShades();
+  },
+};
+
+chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
+  const handler = actionHandlers[message.action];
+  if (handler) {
+    handler();
+  } else {
+    console.warn(`No handler found for action: ${message.action}`);
   }
 });
-
-let topOffset = 50;
-const bottomOffset = 2;
-let lastY = window.innerHeight / 2;
 
 const handleMouseMove = (event) => {
   lastY = event.clientY;
   updateShadesPosition(event);
 };
+
 const handleScroll = (event) => {
   updateShadesPosition(event);
 };
