@@ -11,7 +11,6 @@ chrome.commands.onCommand.addListener((command) => {
         break;
 
       case "open":
-        console.log("Opening shades");
         chrome.tabs.sendMessage(tabId, { action: "openShades" });
         break;
 

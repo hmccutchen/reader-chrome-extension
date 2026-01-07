@@ -4,6 +4,8 @@ const bottomOffset = 2;
 
 let topOffset = INITIAL_TOP_OFFSET;
 let lastY = window.innerHeight / 2;
+let spotlightState = false;
+let lastX = window.innerWidth / 2;
 
 const actionHandlers = {
   openShades: () => {
@@ -22,7 +24,13 @@ const actionHandlers = {
     updateShades();
   },
   spotlight: () => {
-    initShadeSetup();
+    if (spotlightState) {
+      removeShades();
+      spotlightState = false;
+      return;
+    }
+    spotlightState = true;
+    initSpotlightSetup();
     initializeShades();
   },
 };
@@ -38,11 +46,13 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
 
 const handleMouseMove = (event) => {
   lastY = event.clientY;
-  updateShadesPosition(event);
+  if (spotlightState) updateSpotlightPosition(event);
+  else updateShadesPosition(event);
 };
 
 const handleScroll = (event) => {
-  updateShadesPosition(event);
+  if (spotlightState) updateSpotlightPosition(event);
+  else updateShadesPosition(event);
 };
 
 const initShadeSetup = () => {
@@ -64,6 +74,18 @@ const initShadeSetup = () => {
   pageBody.insertBefore(secondDiv, pageBody.children[1]);
 };
 
+const initSpotlightSetup = () => {
+  if (document.querySelector(".spotlight-overlay")) {
+    return;
+  }
+  document.body.setAttribute("id", "body");
+
+  const pageBody = document.getElementById("body");
+  const overlay = document.createElement("div");
+  overlay.setAttribute("class", "spotlight-overlay");
+  pageBody.insertBefore(overlay, pageBody.firstChild);
+};
+
 const initializeShades = () => {
   window.addEventListener("scroll", handleScroll);
   document
@@ -73,6 +95,9 @@ const initializeShades = () => {
   const initialMouseMoveEvent = new MouseEvent("mousemove", {
     clientY: lastY,
   });
+  if (spotlightState) {
+    updateSpotlightPosition(initialMouseMoveEvent);
+  }
   updateShadesPosition(initialMouseMoveEvent);
 };
 
@@ -118,6 +143,31 @@ let updateShadesPosition = (event, forceUpdate = false) => {
       bottomShade.style.zIndex = "2147483647";
       topShade.style.pointerEvents = "none";
     }
+  }
+};
+
+let updateSpotlightPosition = (event, forceUpdate = false) => {
+  if (event && event.type === "mousemove") {
+    lastY = event.clientY;
+    lastX = event.clientX;
+  }
+  const overlay = document.getElementsByClassName("spotlight-overlay")[0];
+
+  // const topY = lastY - topOffset + window.scrollY;
+
+  if (overlay) {
+    const centerX = lastX + window.scrollX;
+    const centerY = lastY + window.scrollY;
+    const radius = topOffset;
+
+    overlay.style.position = "absolute";
+    overlay.style.top = "0";
+    overlay.style.left = "0";
+    overlay.style.width = `${document.documentElement.scrollWidth}px`;
+    overlay.style.height = `${document.documentElement.scrollHeight}px`;
+    overlay.style.background = `radial-gradient(circle ${radius}px at ${centerX}px ${centerY}px, transparent 0%, transparent ${radius}px, rgba(0, 0, 0, 0.8) ${radius}px)`;
+    overlay.style.zIndex = "2147483647";
+    overlay.style.pointerEvents = "none";
   }
 };
 
