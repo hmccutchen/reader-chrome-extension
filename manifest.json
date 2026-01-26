@@ -56,6 +56,12 @@
     "default_title": "Reader Focus",
     "default_popup": "popup.html"
   },
+  "web_accessible_resources": [
+  {
+    "resources": ["shadeModes/*.js"],
+    "matches": ["<all_urls>"]
+  }
+],
   "permissions": [ "scripting", "activeTab"],
   "host_permissions": ["<all_urls>"]
 }
