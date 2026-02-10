@@ -1,12 +1,27 @@
 ![text-converter copy](https://github.com/user-attachments/assets/758957bc-a310-4479-bb81-444fbd3e62de)
 
-# Sentence Reader
+# Reader Focus
 
-This simple extension blocks the top and bottom areas of the webpage view around your mouse cursor by adding shaders, to allow a smaller viewing window to help when reading text on the web.
-you can then edit the shader size to fit your needs.
+Reader Focus narrows your reading area by dimming the page above and below your cursor, creating a focused window for easier on‑screen reading. You can adjust the shader size to match your comfort and screen layout.
 
-Commands:
+Default shortcuts (suggested):
 
-- CTRL + SHIFT + A (will start the extension)
-- CTRL + SHIFT + X (will close the extension)
-- CTRL + SHIFT + ⬆️ OR ⬇️ (will increase and decrease the shaders size)
+- Open focus mode: `Ctrl + Shift + A`
+- Close focus mode: `Ctrl + Shift + X`
+- Increase shader size: `Ctrl + Shift + ↑`
+- Decrease shader size: `Ctrl + Shift + ↓`
+
+## Setting up keyboard shortcuts
+
+The suggested shortcuts above may not be active by default. Most browsers require you to enable or customize extension shortcuts manually.
+
+Chromium-based browsers (Chrome, Edge, Brave, Vivaldi, Opera):
+1. Open `chrome://extensions/shortcuts` in the address bar.
+2. Find "Reader focus".
+3. Assign shortcuts for `open`, `close`, `increase`, and `decrease`.
+4. Pick "Global" if you want the shortcuts to work outside the browser (if your browser supports that).
+
+Firefox:
+1. Open `about:addons`.
+2. Click the gear icon and choose "Manage Extension Shortcuts" (or go to `about:addons` > Extensions > Manage Extension Shortcuts).
+3. Find "Reader focus" and set the shortcuts you want.
