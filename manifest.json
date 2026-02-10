@@ -1,6 +1,6 @@
 {
   "name": "Reader focus",
-  "version": "2.5",
+  "version": "3.0",
   "manifest_version": 3,
   "description": "This extension allows users to focus on single sentences when reading text.",
   "icons": { "16": "text-converter-16.png",
