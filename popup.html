@@ -1,31 +1,36 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <title>Focus Reader</title>
   <link rel="stylesheet" type="text/css" href="style.css">
   <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 </head>
-  <body>
-    <div class="header">
-      <img src="text-converter-48.png" id="icon" alt="icon">
-      <div id="commands">
-        <h3> <u>
-            Key Commands
-          </u>
-        </h3>
-        <p>
-          <b>ACTIVATE ~> </b> <button>CTRL</button>+<button>SHIFT</button>+<button>A</button>
-        </p>
-        <p>
-          <b>DEACTIVATE ~> </b> <strong><button>CTRL</button>+<button>SHIFT</button>+<button>X</button></strong>
-        </p>
-        <p>
-          <b>INCREASE ~> </b> <strong> <button>CTRL</button>+<button> SHIFT</button>+</strong><button> &#11014</button>
-        </p>
-        <p>
-          <b>DECREASE ~> </b> <strong> <button>CTRL</button>+ <button>SHIFT</button>+</strong> <button> &#11015 </button>
-        </p>
-      </div>
+
+<body>
+  <div class="header">
+    <img src="text-converter-48.png" id="icon" alt="icon">
+    <div id="commands">
+      <button id="activate-spotlight"> Spotlight </button>
+      <h3> <u>
+          Key Commands
+        </u>
+      </h3>
+      <p>
+        <b>ACTIVATE ~> </b> <button>CTRL</button>+<button>SHIFT</button>+<button>A</button>
+      </p>
+      <p>
+        <b>DEACTIVATE ~> </b> <strong><button>CTRL</button>+<button>SHIFT</button>+<button>X</button></strong>
+      </p>
+      <p>
+        <b>INCREASE ~> </b> <strong> <button>CTRL</button>+<button> SHIFT</button>+</strong><button> &#11014</button>
+      </p>
+      <p>
+        <b>DECREASE ~> </b> <strong> <button>CTRL</button>+ <button>SHIFT</button>+</strong> <button> &#11015 </button>
+      </p>
     </div>
-  </body>
+  </div>
+  <script src="popup.js"></script>
+</body>
+
 </html>

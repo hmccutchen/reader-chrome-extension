@@ -8,29 +8,10 @@ chrome.commands.onCommand.addListener((command) => {
     switch (command) {
       case "close":
         chrome.tabs.sendMessage(tabId, { action: "closeShades" });
-
         break;
 
       case "open":
-        console.log("Opening shades");
-        chrome.scripting.executeScript(
-          {
-            target: { tabId: tabId },
-            files: ["main.js"],
-          },
-          () => {
-            if (chrome.runtime.lastError) {
-              console.error(
-                "Script injection failed:",
-                chrome.runtime.lastError
-              );
-              return;
-            }
-            // Send message only after script has been successfully injected
-            chrome.tabs.sendMessage(tabId, { action: "openShades" });
-          }
-        );
-
+        chrome.tabs.sendMessage(tabId, { action: "openShades" });
         break;
 
       case "increase":
