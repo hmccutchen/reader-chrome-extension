@@ -11,23 +11,20 @@
   <div class="header">
     <img src="text-converter-48.png" id="icon" alt="icon">
     <div id="commands">
-      <button id="activate-spotlight"> Spotlight </button>
-      <h3> <u>
-          Key Commands
-        </u>
-      </h3>
-      <p>
-        <b>ACTIVATE ~> </b> <button>CTRL</button>+<button>SHIFT</button>+<button>A</button>
-      </p>
-      <p>
-        <b>DEACTIVATE ~> </b> <strong><button>CTRL</button>+<button>SHIFT</button>+<button>X</button></strong>
-      </p>
-      <p>
-        <b>INCREASE ~> </b> <strong> <button>CTRL</button>+<button> SHIFT</button>+</strong><button> &#11014</button>
-      </p>
-      <p>
-        <b>DECREASE ~> </b> <strong> <button>CTRL</button>+ <button>SHIFT</button>+</strong> <button> &#11015 </button>
-      </p>
+      <div class="actions">
+        <button id="toggle-toolbar" class="toggle-btn" aria-pressed="false">OFF</button>
+        <span id="toolbar-indicator" class="status-light" aria-hidden="true"></span>
+        <span class="status-text" id="toolbar-status">Toolbar off</span>
+        <button id="toggle-toolbar-visibility" class="ghost-btn" disabled>Show</button>
+      </div>
+      <h3>Controls</h3>
+      <ul class="control-list">
+        <li><strong>Open focus</strong>: <span class="keys">Ctrl + Shift + A</span></li>
+        <li><strong>Close focus</strong>: <span class="keys">Ctrl + Shift + X</span></li>
+        <li><strong>Increase size</strong>: <span class="keys">Ctrl + Shift + &#11014</span></li>
+        <li><strong>Decrease size</strong>: <span class="keys">Ctrl + Shift + &#11015</span></li>
+      </ul>
+      <p class="helper">Use the toggle to show or hide the floating toolbar.</p>
     </div>
   </div>
   <script src="popup.js"></script>
