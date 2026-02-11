@@ -34,6 +34,8 @@
     toggleToolbar: () => {
       const toolbar = document.getElementById("reader-focus-toolbar");
       if (toolbar) {
+        controller.switchMode(null);
+        setToolbarHidden(false);
         toolbar.remove();
         removeToolbarStyles();
       } else {
@@ -289,14 +291,6 @@
       controller.decreaseOffset();
     });
 
-    const offBtn = document.createElement("button");
-    offBtn.type = "button";
-    offBtn.className = "rf-off";
-    offBtn.textContent = "Off";
-    offBtn.addEventListener("click", () => {
-      controller.switchMode(null);
-    });
-
     const hideBtn = document.createElement("button");
     hideBtn.type = "button";
     hideBtn.className = "rf-hide";
@@ -311,7 +305,6 @@
     toolbar.appendChild(decreaseBtn);
     toolbar.appendChild(increaseBtn);
     toolbar.appendChild(hideBtn);
-    toolbar.appendChild(offBtn);
 
     document.body.appendChild(toolbar);
     setToolbarHidden(isToolbarHidden());
@@ -361,14 +354,6 @@
         background: #3a3a3a;
       }
 
-      #reader-focus-toolbar button.rf-off {
-        background: #b83a3a;
-        border-color: #c84545;
-      }
-
-      #reader-focus-toolbar button.rf-off:hover {
-        background: #d04a4a;
-      }
     `;
     document.head.appendChild(style);
   };
