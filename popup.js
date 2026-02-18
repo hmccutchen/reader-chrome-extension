@@ -1,13 +1,47 @@
+const shouldInjectContentScript = (error) => {
+  const message = error?.message || "";
+  return (
+    message.includes("Could not establish connection") ||
+    message.includes("Receiving end does not exist")
+  );
+};
+
+const sendActionToTab = (tabId, action, callback) => {
+  chrome.tabs.sendMessage(tabId, { action }, (response) => {
+    const error = chrome.runtime.lastError;
+    if (!error) {
+      callback?.(response);
+      return;
+    }
+    if (!shouldInjectContentScript(error)) return;
+
+    chrome.scripting.executeScript(
+      {
+        target: { tabId },
+        files: ["main.js"],
+      },
+      () => {
+        if (chrome.runtime.lastError) {
+          return;
+        }
+
+        chrome.tabs.sendMessage(tabId, { action }, (retryResponse) => {
+          if (chrome.runtime.lastError) {
+            return;
+          }
+          callback?.(retryResponse);
+        });
+      },
+    );
+  });
+};
+
 const sendActionToActiveTab = (action, callback) => {
   chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
     if (!tabs.length) return;
     const tabId = tabs[0].id;
-    chrome.tabs.sendMessage(tabId, { action }, (response) => {
-      if (chrome.runtime.lastError) {
-        return;
-      }
-      callback?.(response);
-    });
+    if (typeof tabId !== "number") return;
+    sendActionToTab(tabId, action, callback);
   });
 };
 
