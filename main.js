@@ -63,11 +63,10 @@
     const handler = actionHandlers[message.action];
     if (handler) {
       const result = handler();
-      if (result !== undefined) {
-        sendResponse(result);
-      }
+      sendResponse(result ?? { ok: true });
     } else {
       console.warn(`No handler found for action: ${message.action}`);
+      sendResponse({ ok: false, error: "Unknown action" });
     }
   });
 
@@ -299,12 +298,24 @@
       setToolbarHidden(true);
     });
 
+    const offBtn = document.createElement("button");
+    offBtn.type = "button";
+    offBtn.className = "rf-off";
+    offBtn.textContent = "Off";
+    offBtn.addEventListener("click", () => {
+      controller.switchMode(null);
+      setToolbarHidden(false);
+      toolbar.remove();
+      removeToolbarStyles();
+    });
+
     toolbar.appendChild(title);
     toolbar.appendChild(spotlightBtn);
     toolbar.appendChild(shadesBtn);
     toolbar.appendChild(decreaseBtn);
     toolbar.appendChild(increaseBtn);
     toolbar.appendChild(hideBtn);
+    toolbar.appendChild(offBtn);
 
     document.body.appendChild(toolbar);
     setToolbarHidden(isToolbarHidden());
@@ -352,6 +363,15 @@
 
       #reader-focus-toolbar button:hover {
         background: #3a3a3a;
+      }
+
+      #reader-focus-toolbar button.rf-off {
+        background: #b83a3a;
+        border-color: #c84545;
+      }
+
+      #reader-focus-toolbar button.rf-off:hover {
+        background: #d04a4a;
       }
 
     `;
